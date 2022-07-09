@@ -24,7 +24,7 @@ class StudioAssetController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.StudioAsset.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class StudioAssetController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('pages.admin.StudioAsset.edit');
     }
 
     /**

@@ -5,13 +5,14 @@
         <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Hi! aryooo</a>
+        <a href="#" class="d-block">Hi! {{ Auth::user()->name }}</a>
+        {{-- <a href="#" class="d-block">Hi! Guest!</a> --}}
       </div>
     </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-legacy nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
 
@@ -30,15 +31,15 @@
             <i class="nav-icon far fa-calendar-alt"></i>
             <p>
               Studio schedules
-              <span class="badge badge-info right">2</span>
+              <span class="badge badge-danger right">10</span>
             </p>
           </a>
         </li>
 
         {{-- Menu Reservations --}}
         <li class="nav-item">
-          <a href="{{ route('reservations.index') }}" class="nav-link">
-            <i class="nav-icon far fa-image"></i>
+          <a href="{{ route('reservations.index') }}" class="nav-link {{ set_active('reservations.index') }}">
+            <i class="nav-icon fas fa-book"></i>
             <p>
               Reservations
             </p>
@@ -47,8 +48,8 @@
 
         {{-- Menu Reservations history --}}
         <li class="nav-item">
-          <a href="{{ route('history.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-columns"></i>
+          <a href="{{ route('history.index') }}" class="nav-link {{ set_active('history.index') }}">
+            <i class="nav-icon fas fa-clock"></i>
             <p>
               Reservations history
             </p>
@@ -57,8 +58,8 @@
 
         {{-- Menu Studio assets --}}
         <li class="nav-item">
-          <a href="{{ route('assets.index') }}" class="nav-link">
-            <i class="nav-icon far fa-envelope"></i>
+          <a href="{{ route('assets.index') }}" class="nav-link {{ set_active('assets.index') }}">
+            <i class="nav-icon fas fa-box"></i>
             <p>
               Studio assets
             </p>
@@ -67,8 +68,8 @@
 
         {{-- Menu Customers --}}
         <li class="nav-item">
-          <a href="{{ route('customers.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-book"></i>
+          <a href="{{ route('customers.index') }}" class="nav-link {{ set_active('customers.index') }}">
+            <i class="nav-icon fas fa-users"></i>
             <p>
               Customers
             </p>
@@ -77,8 +78,8 @@
 
         {{-- Menu report --}}
         <li class="nav-item">
-          <a href="{{ route('report.index') }}" class="nav-link">
-            <i class="nav-icon far fa-plus-square"></i>
+          <a href="{{ route('report.index') }}" class="nav-link {{ set_active('report.index') }}">
+            <i class="nav-icon fas fa-file"></i>
             <p>
               Report
             </p>

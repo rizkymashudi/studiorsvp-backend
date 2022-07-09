@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ReportController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,12 +21,11 @@ use App\Http\Controllers\Admin\ReportController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')
     ->namespace('Admin')
+    ->middleware(['auth', 'admin'])
     ->group(function(){
         Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
         Route::resource('schedules', StudioScheduleController::class);
@@ -36,4 +34,10 @@ Route::prefix('admin')
         Route::resource('assets', StudioAssetController::class);
         Route::resource('customers', CustomerController::class);
         Route::resource('report', ReportController::class);
+        Route::resource('profile', UserProfileController::class);
+        Route::resource('setting', SettingsController::class);
+        Route::resource('log', ActivityLogController::class);
     });
+
+Auth::routes(['verify' => true]);
+
