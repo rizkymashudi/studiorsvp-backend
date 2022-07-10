@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ReportModel extends Model
 {
     use HasFactory;
+
+    protected $table = 'reports';
+    protected $fillable = [
+        'reservation_id',
+        'payment_total',
+        'total_duration'
+    ];
+
+    protected $hidden = [];
 }

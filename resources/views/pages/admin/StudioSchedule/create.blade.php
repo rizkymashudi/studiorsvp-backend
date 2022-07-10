@@ -6,13 +6,13 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
-            <h1 class="m-0">Create studio assets</h1>
+            <h1 class="m-0">Create studio schedules</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" style="color: #6610f2">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('assets.index') }}" style="color: #6610f2">Studio assets</a></li>
-              <li class="breadcrumb-item active">Create studio assets</li>
+              <li class="breadcrumb-item"><a href="{{ route('schedules.index') }}" style="color: #6610f2">Studio schedules</a></li>
+              <li class="breadcrumb-item active">Create studio schedules</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,11 +29,11 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Input new asset</h3>
+                <h3 class="card-title">Input new schedules</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form  action="{{ route('assets.store') }}" method="POST" enctype="multipart/form-data">
+              <form  action="{{ route('schedules.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                   <div class="form-group">

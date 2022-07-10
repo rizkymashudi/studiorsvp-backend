@@ -47,6 +47,8 @@
 {{-- <script src="{{ url('backend/dist/js/demo.js') }}"></script> --}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ url('backend/dist/js/pages/dashboard.js') }}"></script>
+<!-- SweetAlert2 -->
+<script src="{{ url('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
 
 {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script> --}}

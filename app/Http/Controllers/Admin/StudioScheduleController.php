@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ScheduleModel;
+use App\Http\Requests\Admin\StudioSchedulesRequest;
 use Illuminate\Http\Request;
 
 class StudioScheduleController extends Controller
@@ -14,7 +16,8 @@ class StudioScheduleController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.StudioSchedule.index');
+        $schedules = ScheduleModel::all();
+        return view('pages.admin.StudioSchedule.index', ['schedules' => $schedules]);
     }
 
     /**
@@ -24,7 +27,7 @@ class StudioScheduleController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.StudioSchedule.create');
     }
 
     /**

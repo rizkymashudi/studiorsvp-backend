@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssetModel;
+use App\Http\Requests\Admin\StudioAssetRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Alert;
 
 class StudioAssetController extends Controller
 {
@@ -14,7 +18,8 @@ class StudioAssetController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.StudioAsset.index');
+        $assets = AssetModel::all();
+        return view('pages.admin.StudioAsset.index', [ 'assets' => $assets ]);
     }
 
     /**
@@ -33,9 +38,30 @@ class StudioAssetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudioAssetRequest $request)
     {
-        //
+       
+        $data = $request->all();
+        
+        if($request->validated()):
+            if(!$request->hasFile('imgAsset')):
+                AssetModel::create($data);
+                $data['slug'] = Str::slug($request->item_name);
+
+            else:
+                $data['slug'] = Str::slug($request->item_name);
+                $data['image'] = $request->file('imgAsset')->store('assets/studio-assets', 'public');
+                AssetModel::create($data);
+
+            endif;
+
+            Alert::toast('Data berhasil diubah', 'success');
+            return redirect()->route('assets.index');
+        endif; 
+
+        Alert::toast('Gagal mengubah data', 'error');
+        return redirect()->route('assets.index');
+        
     }
 
     /**
@@ -57,7 +83,8 @@ class StudioAssetController extends Controller
      */
     public function edit($id)
     {
-        return view('pages.admin.StudioAsset.edit');
+        $asset = AssetModel::findOrFail($id);
+        return view('pages.admin.StudioAsset.edit')->with(['asset' => $asset]);
     }
 
     /**
@@ -67,9 +94,30 @@ class StudioAssetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StudioAssetRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        
+        if($request->validated()):
+            if(!$request->hasFile('imgAsset')):
+                $asset = AssetModel::findOrFail($id);
+                $data['slug'] = Str::slug($request->item_name);
+                $asset->update($data);
+
+            else:
+                $data['slug'] = Str::slug($request->item_name);
+                $data['image'] = $request->file('imgAsset')->store('assets/studio-assets', 'public');
+                $asset = AssetModel::findOrFail($id);
+                $asset->update($data);
+
+            endif;
+
+            Alert::toast('Data berhasil diubah', 'success');
+            return redirect()->route('assets.index');
+        endif; 
+
+        Alert::toast('Gagal mengubah data', 'error');
+        return redirect()->route('assets.index');
     }
 
     /**
@@ -80,6 +128,10 @@ class StudioAssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $asset = AssetModel::findOrFail($id);
+        $asset->delete();
+
+        Alert::toast('Data berhasil dihapus', 'success');
+        return redirect()->route('assets.index');
     }
 }
