@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ScheduleModel;
 use App\Http\Requests\Admin\StudioSchedulesRequest;
 use Illuminate\Http\Request;
+use Alert;
 
 class StudioScheduleController extends Controller
 {
@@ -36,9 +37,25 @@ class StudioScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudioSchedulesRequest $request)
     {
-        //
+
+        if($request->validated()):
+            $date = date_create($request->date);
+            $dateConverted = date_format($date, 'Y-m-d');
+            ScheduleModel::create([
+                'date' => $dateConverted,
+                'session_available' => $request->session_available,
+                'session_reserved' => $request->session_reserved,
+                'open_hours' => $request->open_hours
+            ]);
+            
+        else:
+            Alert::toast('Gagal mengubah data', 'error');
+        endif;
+        
+        Alert::toast('Data berhasil diubah', 'success');
+        return redirect()->route('schedules.index');
     }
 
     /**
@@ -60,7 +77,13 @@ class StudioScheduleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $schedule = ScheduleModel::findOrFail($id);
+        $date = date_create($schedule->date);
+        $scheduleDate = date_format($date, 'Y/m/d');
+        return view('pages.admin.StudioSchedule.edit')->with([
+            'schedule' => $schedule,
+            'scheduleDate' => $scheduleDate
+        ]);
     }
 
     /**
@@ -83,6 +106,10 @@ class StudioScheduleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $schedule = ScheduleModel::findOrFail($id);
+        $schedule->delete();
+
+        Alert::toast('Data berhasil dihapus', 'success');
+        return redirect()->route('schedules.index');
     }
 }

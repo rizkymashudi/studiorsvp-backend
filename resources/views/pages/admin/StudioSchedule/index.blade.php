@@ -97,11 +97,11 @@
                   <div class="modal-content">
                       <div class="modal-header">
                           <div class="box-title d-sm-flex align-items-center justify-content-between">
-                              <h5 class="modal-title">Hapus {{ $schedule->item_name }}</h5>
+                              <h5 class="modal-title">Hapus {{ date('l, j \\ F Y', strtotime($schedule->date)) }}</h5>
                           </div>
                       </div>
                       <div class="modal-body">
-                        <p>Anda yakin ingin menghapus jadwal kegiatan ini?</p>
+                        <p>Anda yakin ingin menghapus jadwal studio ini?</p>
                         <input type="hidden" name="" id="" value="{{ '$kegiatan->id' }}">
                       </div>
                       <div class="modal-footer">

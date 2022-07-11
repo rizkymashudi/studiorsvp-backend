@@ -24,7 +24,10 @@ class StudioSchedulesRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date' => 'required',
+            'session_reserved' => 'required',
+            'session_available'=> 'required',
+            'open_hours' => 'required'
         ];
     }
 }
