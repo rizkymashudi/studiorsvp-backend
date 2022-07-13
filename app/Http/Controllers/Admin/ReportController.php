@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\ReportModel;
 
 class ReportController extends Controller
 {
@@ -14,7 +15,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.Report.index');
+        $reports = ReportModel::all();
+        return view('pages.admin.Report.index', ['reports' => $reports]);
     }
 
     /**

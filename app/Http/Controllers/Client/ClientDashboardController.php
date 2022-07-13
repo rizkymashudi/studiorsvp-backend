@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CustomerModel;
 
-class CustomerController extends Controller
+class ClientDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = CustomerModel::all();
-        return view('pages.admin.Customer.index', ['customers' => $customers]);
+        return view('pages.client.dashboard.overview');
     }
 
     /**
