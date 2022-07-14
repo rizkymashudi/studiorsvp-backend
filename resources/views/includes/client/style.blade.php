@@ -3,8 +3,11 @@
 integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 <!-- Custom CSS -->
-<link rel="stylesheet" href="{{ url('frontend/css/homepage.css')}}">
+<link rel="stylesheet" href="{{ url('frontend/css/homepage.css') }}">
 <link rel="stylesheet" href="{{ url('frontend/css/utilities.css') }}">
+<link rel="stylesheet" href="{{ url('frontend/css/sidebar.css') }}">
+<link rel="stylesheet" href="{{ url('frontend/css/overview.css') }}" />
+<link rel="stylesheet" href="{{ url('frontend/css/edit-profile.css') }}" />
 
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -16,8 +19,3 @@ rel="stylesheet">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-
-<!-- Custom CSS Customer dashboard -->
-<link rel="stylesheet" href="{{ url('frontend/css/utilities.css') }}" />
-<link rel="stylesheet" href="{{ url('frontend/css/sidebar.css') }}">
-<link rel="stylesheet" href="{{ url('frontend/css/overview.css')}}" />

@@ -17,7 +17,10 @@
     @include('includes.client.navbar')
 
     <!-- Content -->
-    @yield('content')
+    <section class="overview overflow-auto">
+        @include('includes.client.sidebar')
+        @yield('content')
+    </section>
 
     @stack('prepend-script')
     @include('includes.client.script')

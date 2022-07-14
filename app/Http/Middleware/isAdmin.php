@@ -21,6 +21,6 @@ class isAdmin
             return $next($request);
         endif;
 
-        return redirect('/');
+        return redirect('overview');
     }
 }

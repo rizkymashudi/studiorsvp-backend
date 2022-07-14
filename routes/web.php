@@ -8,7 +8,10 @@ use App\Http\Controllers\Admin\ReservationHistoryController;
 use App\Http\Controllers\Admin\StudioAssetController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Client\ClientDashboardController;
+use App\Http\Controllers\ClientDashboardController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\CustomerSettingController;
 
 
 /*
@@ -24,6 +27,9 @@ use App\Http\Controllers\Client\ClientDashboardController;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('overview', ClientDashboardController::class);
+Route::resource('booking', BookingController::class);
+Route::resource('reservations-history', HistoryController::class);
+Route::resource('profile-settings', CustomerSettingController::class);
 
 Route::prefix('admin')
     ->namespace('Admin')

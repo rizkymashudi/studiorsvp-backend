@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ClientDashboardController extends Controller
+class HistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class ClientDashboardController extends Controller
      */
     public function index()
     {
-        return view('pages.client.dashboard.overview');
+        return view('pages.client.history');
     }
 
     /**
