@@ -14,7 +14,17 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $schedules = ScheduleModel::orderBy('date', 'desc')->get();
+        $schedules = ScheduleModel::with('subSchedule')
+                            ->orderBy('date', 'desc')
+                            ->get();
+        
+        // foreach($schedules as $schedule):
+        //     $openHour = date('H', strtotime($schedule->open_hours));
+        //     $closeHour = date('H', strtotime($schedule->close_hour));
+        //     $totalHours = $closeHour - $openHour;
+        //     dd($totalHours, $openHour, $closeHour);
+            
+        // endforeach;
         return view('pages.client.booking', ['schedules' => $schedules]);
     }
 
@@ -36,7 +46,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        return redirect()->back();
     }
 
     /**
