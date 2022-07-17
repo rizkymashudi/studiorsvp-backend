@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StudioSchedulesRequest extends FormRequest
+class SubScheduleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class StudioSchedulesRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required',
-            'open_hours' => 'required',
-            'close_hour' => 'required'
+            'reserved' => 'required'
         ];
     }
 }

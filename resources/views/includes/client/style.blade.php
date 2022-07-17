@@ -8,6 +8,7 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
 <link rel="stylesheet" href="{{ url('frontend/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ url('frontend/css/overview.css') }}" />
 <link rel="stylesheet" href="{{ url('frontend/css/edit-profile.css') }}" />
+<link rel="stylesheet" href="{{ url('frontend/css/detail.css') }}">
 
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">

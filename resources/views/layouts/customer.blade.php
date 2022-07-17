@@ -10,18 +10,24 @@
     @include('includes.client.style')
     @stack('addon-style')
 
-    <title>Overview StoreGG</title>
+    <title>Music studio rental</title>
 </head>
 
 <body>
-    @include('includes.client.navbar')
-
-    <!-- Content -->
-    <section class="overview overflow-auto">
+    
+    <div class="wrapper">
+        @include('sweetalert::alert')
+        @include('includes.client.navbar')
         @include('includes.client.sidebar')
-        @yield('content')
-    </section>
 
+        <!-- Content -->
+        <div class="content overview overflow-auto">
+            @yield('content')
+        </div>
+
+    </div>
+
+    
     @stack('prepend-script')
     @include('includes.client.script')
     @stack('addon-script')

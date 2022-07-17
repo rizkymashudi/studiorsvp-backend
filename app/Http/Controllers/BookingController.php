@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ScheduleModel;
 
 class BookingController extends Controller
 {
@@ -13,7 +14,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return view('pages.client.booking');
+        $schedules = ScheduleModel::orderBy('date', 'desc')->get();
+        return view('pages.client.booking', ['schedules' => $schedules]);
     }
 
     /**

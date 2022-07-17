@@ -12,10 +12,13 @@ class ScheduleModel extends Model
     protected $table = 'schedules';
     protected $fillable = [
         'date',
-        'session_available', 
-        'session_reserved', 
         'open_hours', 
+        'close_hour'
     ];
 
     protected $hidden = [];
+
+    public function subSchedule(){
+        return $this->hasMany(SubScheduleModel::class, 'schedule_id', 'id');
+    }
 }

@@ -10,7 +10,7 @@
     @include('includes.client.style')
     @stack('addon-style')
     
-    <title>StoreGG</title>
+    <title>Studio rental</title>
 </head>
 
 <body>

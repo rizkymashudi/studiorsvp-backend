@@ -37,6 +37,7 @@ Route::prefix('admin')
     ->group(function(){
         Route::get('/',[DashboardController::class, 'index'])->name('dashboard');
         Route::resource('schedules', StudioScheduleController::class);
+        Route::resource('sub-schedule', StudioSubScheduleController::class);
         Route::resource('reservations', StudioReservationController::class);
         Route::resource('history', ReservationHistoryController::class);
         Route::resource('assets', StudioAssetController::class);

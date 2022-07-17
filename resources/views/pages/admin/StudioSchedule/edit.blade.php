@@ -41,7 +41,7 @@
                   <div class="form-group">
                     <label>Date</label>
                       <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input @error('date') is-invalid @enderror" name="date" data-target="#reservationdate" value="{{ old('date') ? old('date') : $scheduleDate }}"/>
+                          <input type="text" class="form-control datetimepicker-input @error('date') is-invalid @enderror" name="date" data-target="#reservationdate" value="{{ old('date') ? old('date') : date('m/d/Y', strtotime($scheduleDate)) }}"/>
                           <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
@@ -62,26 +62,14 @@
                   </div>
 
                    <!-- Date and time -->
-                  <div class="form-group">
-                    <label>Studio reserved</label>
-                      <div class="input-group date" id="reservationtime" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input @error('session_reserved') is-invalid @enderror" name="session_reserved" data-target="#reservationtime" value="{{ old('session_reserved') ? old('session_reserved') : $schedule->session_reserved }}"/>
-                          <div class="input-group-append" data-target="#reservationtime" data-toggle="datetimepicker">
-                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                          </div>
-                          @error('session_reserved') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                      </div>
-                  </div>
-
-                   <!-- Date and time -->
                    <div class="form-group">
-                    <label>Studio available</label>
-                      <div class="input-group date" id="availabletime" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input @error('session_available') is-invalid @enderror" name="session_available" data-target="#availabletime" value="{{ old('session_available') ? old('session_available') : $schedule->session_available  }}"/>
-                          <div class="input-group-append" data-target="#availabletime" data-toggle="datetimepicker">
+                    <label>Studio close hour</label>
+                      <div class="input-group date" id="closehour" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input @error('close_hour') is-invalid @enderror" name="close_hour" data-target="#closehour" value="{{ old('close_hour') ? old('close_hour') : $schedule->close_hour }}"/>
+                          <div class="input-group-append" data-target="#closehour" data-toggle="datetimepicker">
                               <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
-                          @error('session_available') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                          @error('close_hour') <div class="invalid-feedback">{{ $message }}</div> @enderror
                       </div>
                   </div>
 
@@ -111,18 +99,12 @@
     });
 
    //Date and time picker
-   $('#reservationtime').datetimepicker({ 
-    format: 'hh:mm:ss'
-    // icons: { time: 'far fa-clock' }
-   });
-
-   $('#availabletime').datetimepicker({ 
-    format: 'hh:mm:ss'
+   $('#closehour').datetimepicker({ 
+    format: 'HH:mm:ss'
    });
 
    $('#openhours').datetimepicker({ 
-    format: 'hh:mm:ss'
-    // icons: { time: 'far fa-clock' }
+    format: 'HH:mm:ss'
    });
   </script>
 @endpush

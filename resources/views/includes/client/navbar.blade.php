@@ -25,25 +25,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto text-lg gap-lg-0 gap-2">
                         <li class="nav-item my-auto">
-                            <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link {{ set_active('home') }}" aria-current="page" href="{{ Route::is('home') ? '#header' : route('home') }}">Home</a>
                         </li>
                         @auth
                         <li class="nav-item my-auto">
-                            <a class="nav-link" aria-current="page" href="{{ route('overview.index') }}">Dashboard</a>
+                            <a class="nav-link {{ set_active('overview.index') }}" aria-current="page" href="{{  Route::is('overview') ? '#overview' : route('overview.index') }}">Dashboard</a>
                         </li>
                         @endauth
                         <li class="nav-item my-auto">
-                            <a class="nav-link" href="#">Games</a>
-                        </li>
-                        <li class="nav-item my-auto">
-                            <a class="nav-link" href="#">Rewards</a>
-                        </li>
-
-                        <li class="nav-item my-auto">
-                            <a class="nav-link" href="#">Discover</a>
+                            <a class="nav-link" href="#">About us</a>
                         </li>
                         <li class="nav-item my-auto me-lg-20">
-                            <a class="nav-link" href="#">Global Rank</a>
+                            <a class="nav-link" href="#">Contact</a>
                         </li>
                         <li class="nav-item my-auto">
                             @auth

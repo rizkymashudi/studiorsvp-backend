@@ -31,7 +31,8 @@
     transition: all 0.1s linear;
     background-color: #F9FAFF;
     border-radius: 1.625rem;
-    padding: 1.875rem;
+    /* padding: 1.875rem; */
+    padding: 1.20rem;
     cursor: pointer;
 }
 

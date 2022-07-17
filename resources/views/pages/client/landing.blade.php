@@ -2,7 +2,7 @@
 @section('content')
     <main>
       <!-- Header -->
-      <section class="header pt-lg-60 pb-50">
+      <section class="header pt-lg-60 pb-50" id="header">
         <div class="container-xxl container-fluid">
             <div class="row gap-lg-0 gap-5">
                 <div class="col-lg-6 col-12 my-auto">
