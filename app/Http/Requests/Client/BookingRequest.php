@@ -26,7 +26,7 @@ class BookingRequest extends FormRequest
         return [
             'booking_date' => 'required',
             'bookSchedule' => 'required',
-            'rentDuration' => 'required|numeric|min:1'
+            'rentDuration' => 'required|numeric|min:1|max:4'
         ];
     }
 }
