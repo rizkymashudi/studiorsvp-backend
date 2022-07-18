@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ScheduleModel;
+use App\Models\CustomerModel;
+use App\Http\Requests\Client\BookingRequest;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
@@ -18,13 +21,6 @@ class BookingController extends Controller
                             ->orderBy('date', 'desc')
                             ->get();
         
-        // foreach($schedules as $schedule):
-        //     $openHour = date('H', strtotime($schedule->open_hours));
-        //     $closeHour = date('H', strtotime($schedule->close_hour));
-        //     $totalHours = $closeHour - $openHour;
-        //     dd($totalHours, $openHour, $closeHour);
-            
-        // endforeach;
         return view('pages.client.booking', ['schedules' => $schedules]);
     }
 
@@ -44,9 +40,21 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookingRequest $request)
     {
-        dd($request->all());
+        // 1. Create random number for reservation number
+        $count = 1;
+        $bookCode = "BK";
+        $createdAt = now()->format('dmyHi');
+        $random = Str::random(2);
+        $reservationNumber = sprintf('%03s', $bookCode, $random, $createdAt);
+        dd($reservationNumber);
+        // 2. Get Customer ID / Customer unique Data
+        // 3. Convert bookSchedule into time data type
+        if($request->validated()):
+
+
+        endif;
         return redirect()->back();
     }
 
