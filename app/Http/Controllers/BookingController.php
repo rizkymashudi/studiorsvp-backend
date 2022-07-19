@@ -24,8 +24,10 @@ class BookingController extends Controller
         $schedules = ScheduleModel::with('subSchedule')
                             ->orderBy('date', 'desc')
                             ->get();
-        
-        return view('pages.client.booking', ['schedules' => $schedules]);
+
+        return view('pages.client.booking', [
+            'schedules' => $schedules,
+        ]);
     }
 
     /**
@@ -64,6 +66,8 @@ class BookingController extends Controller
                                     ->where('schedule_id', $scheduleID)
                                     ->where('studio_reserved', $bookingSchedule)    
                                     ->exists();
+        $a = $request->all();
+        dd($a, $scheduleID, $bookingSchedule, $bookedScheduleAlreadyExist);
         // 4. Validate
         if($request->validated()):
             if($bookedScheduleAlreadyExist):

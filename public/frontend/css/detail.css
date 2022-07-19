@@ -36,6 +36,14 @@
     cursor: pointer;
 }
 
+.detail .detail-cards{
+    transition: all 0.1s linear;
+    border-radius: 1.625rem;
+    background-color: #bdbdbd98;
+    padding: .5rem;
+
+}
+
 .detail input[type="radio"]:checked+.detail-card{
     border: 2px solid #00BAFF;
     background-color: rgba(0, 186, 255, 0.05);
