@@ -61,31 +61,54 @@ class BookingController extends Controller
         $bookSchedule = "$request->bookSchedule:00";
         $bookingSchedule = date('H:i:s', strtotime($bookSchedule));
 
-        $scheduleID = $request->scheduleID;
+        // 5. Get scheduleID
+        // split into array then reverse
+        // slice 10 element then reverse again
+        // implode into string
+        $arrScheduleReverse = array_reverse(str_split($request->booking_date));
+        $sliceArray = array_reverse(array_slice($arrScheduleReverse, 10));
+        $scheduleID = implode("", $sliceArray);
+
+        // 6. Get Booking_date
+        $arrBookSchedule = str_split($request->booking_date); 
+        $arrBookingDate = array_slice($arrBookSchedule, -10);
+        $bookingDate = implode($arrBookingDate);
+
+        // 6. Check schedule within the same date 
         $bookedScheduleAlreadyExist = SubScheduleModel::with('schedule')
                                     ->where('schedule_id', $scheduleID)
                                     ->where('studio_reserved', $bookingSchedule)    
                                     ->exists();
 
-        // dd($scheduleID, $bookingSchedule);
-        // 4. Validate
+        $scheduleDatesById = ScheduleModel::where('id', $scheduleID)->first();
+
+        $currentTime = now('Asia/Jakarta')->format('H:i:s');
+        $pricePerHour = 75000;
+    
+        // 7. Validate
         if($request->validated()):
             if($bookedScheduleAlreadyExist):
                 Alert::toast('Schedule already reserved on this date, please try another schedule', 'error');
                 return redirect()->back();
             endif;
 
+            if($bookingSchedule < $currentTime && $scheduleDatesById == $bookingDate):
+                Alert::toast('Booking schedule is earlier than current time', 'error');
+                return redirect()->back();
+            endif;
+
             ReservationModel::create([
                 'reservations_number' => $reservationNumber,
                 'customer_id'   =>  $customerID->id,
-                'booking_date' => $request->booking_date,
+                'booking_date' => $bookingDate,
                 'rent_schedule' => $bookingSchedule,
                 'duration'  =>  $request->rentDuration,
+                'total_pay' => $request->rentDuration * $pricePerHour,
                 'reservation_status' => 'PENDING'
             ]);
             
             Alert::toast('Booking studio schedule success', 'success');
-            return redirect()->route('booking.index');
+            return redirect()->route('overview.index');
         endif;
 
         Alert::toast('Something went wrong, please try again', 'error');

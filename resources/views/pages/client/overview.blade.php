@@ -24,7 +24,7 @@
                                 <td><p class="fw-medium color-palette-1 m-0">{{ date('j \\ F Y', strtotime($overview->booking_date)) }}</p></td>
                                 <td><p class="fw-medium color-palette-1 m-0">{{ date('H:i', strtotime($overview->rent_schedule)) }}</p></td>
                                 <td><p class="fw-medium color-palette-1 m-0">{{ $overview->duration }} hours</p></td>
-                                <td><p class="fw-medium color-palette-1 m-0"> 66.600 </p></td>
+                                <td><p class="fw-medium color-palette-1 m-0"> {{ $overview->total_pay }} </p></td>
                                 <td>
                                     <div class="align-self-end">
                                         @if ($overview->reservation_status == "COMPLETE")

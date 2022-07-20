@@ -33,7 +33,7 @@
                     <p class="fw-medium text-center color-palette-1 m-0">{{ $history->duration }}</p>
                   </td>
                   <td>
-                    <p class="fw-medium text-center color-palette-1 m-0">Bill</p>
+                    <p class="fw-medium text-center color-palette-1 m-0">{{ $history->total_pay }}</p>
                   </td>
                   <td>
                     <p class="fw-medium text-center color-palette-1 m-0">{{ $history->payment_proof }}</p>

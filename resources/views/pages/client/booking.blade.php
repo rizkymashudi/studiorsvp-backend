@@ -30,7 +30,7 @@
                             </div>
                           </div>
                         @empty
-                        <div class="col-lg-2 col-sm-2 col-md-2 pt-15 pb-15" for="reserved">
+                        <div class="col-lg-2 col-sm-2 col-md-2 pt-10 pb-10" for="reserved">
                           <div class="detail-cards align-items-center">
                             <p class="text-center text-small my-2 mx-2">
                               <h6>no schedule reserved</h6>
@@ -58,7 +58,7 @@
                   <select class="form-select form-select-md my-2 @error('booking_date') is-invalid @enderror" aria-label=".form-select-md example" name="booking_date" id="scheduleSelector">
                     <option  selected disabled hidden>Select date</option>
                     @foreach ($schedules as $schedule)
-                    <option value="{{ $schedule->date }}">{{ date('l, j \\ F Y', strtotime($schedule->date)) }}</option>
+                    <option value="{{ $schedule->id.$schedule->date }}">{{ date('l, j \\ F Y', strtotime($schedule->date)) }}</option>
                     @endforeach
                   </select>
                   @error('booking_date') <div class="invalid-feedback">{{ $message }}</div> @enderror
@@ -89,7 +89,7 @@
                     </div>
     
                     @foreach($schedules as $schedule)
-                      <div class="form-group mx-2 my-3 scheduleDates" id="{{ $schedule->date }}" style="display: none">
+                      <div class="form-group mx-2 my-3 scheduleDates" id="{{ $schedule->id.$schedule->date }}" style="display: none">
                         <div class="row justify-content-start">
                             <label>{{ date('l, j \\ F Y', strtotime($schedule->date)) }}</label>
                         </div>
@@ -124,18 +124,16 @@
                             @endfor
                         </div>
                       </div>
-                      <div class="mx-3 scheduleID" style="display: block">
-                        <input type="number" class="form-control my-2" name="scheduleID" value="{{ $schedule->id }}" id="scheduleID{{ $schedule->date }}">
-                      </div>
                     @endforeach
                   </div>
                 </div>
     
                 <div class="mx-3 my-3">
-                  <label class="fw-medium color-palette-1" for="exampleFormControlSelect1">Rent duration</label>
+                  <label class="fw-medium color-palette-1" for="exampleFormControlSelect1">Rent duration (75.000 / hour)</label>
                   <input type="number" class="form-control my-2 @error('rentDuration') is-invalid @enderror" min="0" max="5" name="rentDuration">
                   @error('rentDuration') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
+                
               </div>
               <!-- /.card-body -->
     

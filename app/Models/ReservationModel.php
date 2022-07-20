@@ -16,6 +16,7 @@ class ReservationModel extends Model
         'booking_date',
         'rent_schedule',
         'duration',
+        'total_pay',
         'reservation_status'
     ];
 
