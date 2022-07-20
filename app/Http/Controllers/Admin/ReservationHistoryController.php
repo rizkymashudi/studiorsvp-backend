@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ReservationModel;
 use Illuminate\Http\Request;
 
 class ReservationHistoryController extends Controller
@@ -14,7 +15,15 @@ class ReservationHistoryController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.ReservationHistory.index');
+        $histories = ReservationModel::with('customer')
+                                    ->where('reservation_status', 'COMPLETE')
+                                    ->orWhere('reservation_status', 'FAILED')
+                                    ->get();
+
+        // dd($histories);
+        return view('pages.admin.ReservationHistory.index', [
+            'histories' => $histories
+        ]);
     }
 
     /**

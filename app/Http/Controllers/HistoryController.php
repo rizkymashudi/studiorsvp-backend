@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ReservationModel;
+use Auth;
 
 class HistoryController extends Controller
 {
@@ -13,7 +15,14 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        return view('pages.client.history');
+        $customerID = Auth::user()->id;
+        $histories = ReservationModel::with('customer')
+                                    ->where('customer_id', $customerID)
+                                    ->get();
+
+        return view('pages.client.history', [
+            'histories' => $histories
+        ]);
     }
 
     /**

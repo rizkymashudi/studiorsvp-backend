@@ -66,8 +66,8 @@ class BookingController extends Controller
                                     ->where('schedule_id', $scheduleID)
                                     ->where('studio_reserved', $bookingSchedule)    
                                     ->exists();
-        $a = $request->all();
-        dd($a, $scheduleID, $bookingSchedule, $bookedScheduleAlreadyExist);
+
+        // dd($scheduleID, $bookingSchedule);
         // 4. Validate
         if($request->validated()):
             if($bookedScheduleAlreadyExist):
@@ -80,7 +80,8 @@ class BookingController extends Controller
                 'customer_id'   =>  $customerID->id,
                 'booking_date' => $request->booking_date,
                 'rent_schedule' => $bookingSchedule,
-                'duration'  =>  $request->rentDuration
+                'duration'  =>  $request->rentDuration,
+                'reservation_status' => 'PENDING'
             ]);
             
             Alert::toast('Booking studio schedule success', 'success');

@@ -15,8 +15,13 @@ class ReservationModel extends Model
         'customer_id', 
         'booking_date',
         'rent_schedule',
-        'duration'
+        'duration',
+        'reservation_status'
     ];
 
     protected $hidden = [];
+
+    public function customer(){
+        return $this->belongsTo(CustomerModel::class, 'customer_id');
+    }
 }

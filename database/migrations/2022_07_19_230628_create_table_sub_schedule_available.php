@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('schedules', function (Blueprint $table) {
-            $table->dropColumn('schedule_available');
+        Schema::create('sub_schedule_available', function (Blueprint $table) {
+            $table->id();
+            $table->integer('schedule_id');
+            $table->time('schedule_available');
+            $table->timeStamps();
         });
     }
 
@@ -25,8 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('schedules', function (Blueprint $table) {
-            //
-        });
+       Schema::drop('sub_schedule_available');
     }
 };

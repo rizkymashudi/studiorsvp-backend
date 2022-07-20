@@ -2,8 +2,8 @@
   <div class="content pt-50 pb-30 ps-30">
       <div class="user text-center pb-50 pe-30">
           <img src="{{ url('frontend/assets/img/avatar-1.png') }}" width="90" height="90" class="img-fluid mb-20" />
-          <h2 class="fw-bold text-xl color-palette-1 m-0">Shayna Anne</h2>
-          <p class="color-palette-2 m-0">shayna@anne.com</p>
+          <h2 class="fw-bold text-xl color-palette-1 m-0">{{ Auth::user()->name }}</h2>
+          <p class="color-palette-2 m-0">{{ Auth::user()->email }}</p>
       </div>
       <div class="menus">
           <div class="item {{ set_active('overview.index') }} mb-30">

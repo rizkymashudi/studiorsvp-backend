@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ReservationModel;
+use Auth;
 
 class ClientDashboardController extends Controller
 {
@@ -13,7 +15,14 @@ class ClientDashboardController extends Controller
      */
     public function index()
     {
-        return view('pages.client.overview');
+        $customerID = Auth::user()->id;
+        $overviews = ReservationModel::with('customer')
+                                    ->where('customer_id', $customerID)
+                                    ->latest()
+                                    ->take(5)
+                                    ->get();
+
+        return view('pages.client.overview', ['overviews' => $overviews]);
     }
 
     /**

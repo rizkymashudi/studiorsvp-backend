@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ReservationModel;
 use Illuminate\Http\Request;
+use Alert;
 
 class StudioReservationController extends Controller
 {
@@ -14,7 +16,12 @@ class StudioReservationController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.Reservations.index');
+        $incomingReservations = ReservationModel::with('customer')
+                                                ->where('reservation_status', 'PENDING')
+                                                ->get();
+        return view('pages.admin.Reservations.index', [
+            'incomingReservations' => $incomingReservations
+        ]);
     }
 
     /**
@@ -69,7 +76,15 @@ class StudioReservationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $status = $request->reservation_status;
+        $reservation = ReservationModel::findOrFail($id);
+
+        $reservation->update([
+            'reservation_status' => $status
+        ]);
+
+        Alert::toast('Change booking status success', 'success');
+        return redirect()->back();
     }
 
     /**

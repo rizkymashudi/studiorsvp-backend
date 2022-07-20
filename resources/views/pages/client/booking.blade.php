@@ -30,9 +30,9 @@
                             </div>
                           </div>
                         @empty
-                        <div class="col col-sm-1 pt-15 pb-15" for="reserved">
+                        <div class="col-lg-2 col-sm-2 col-md-2 pt-15 pb-15" for="reserved">
                           <div class="detail-cards align-items-center">
-                            <p class="text-center text-small my-auto">
+                            <p class="text-center text-small my-2 mx-2">
                               <h6>no schedule reserved</h6>
                             </p>
                           </div>
@@ -97,7 +97,10 @@
                             @php
                                 $openHour = date('H', strtotime($schedule->open_hours));
                                 $closeHour = date('H', strtotime($schedule->close_hour));
-                                $totalHours = $closeHour - $openHour;    
+                                $totalHours = $closeHour - $openHour;  
+
+                                $sub = $schedule->subSchedule;
+                                $subSchedules = $sub->sortBy('studio_reserved');  
                             @endphp
                             @for ($cardCount = 0; $cardCount < $totalHours; $cardCount++)
                             <label class="col-lg-3 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10" for="bookSchedule{{ $schedule->id.$cardCount }}">
@@ -116,13 +119,13 @@
                                 @error('bookSchedule') <div class="invalid-feedback">{{ $message }}</div> @enderror
                             </label>
                             @php
-                                $openHour++
+                                $openHour++;
                             @endphp
                             @endfor
                         </div>
                       </div>
-                      <div class="mx-3 scheduleDates" style="display: none">
-                        <input type="number" class="form-control my-2" name="scheduleID" value="{{ $schedule->id }}">
+                      <div class="mx-3 scheduleID" style="display: block">
+                        <input type="number" class="form-control my-2" name="scheduleID" value="{{ $schedule->id }}" id="scheduleID{{ $schedule->date }}">
                       </div>
                     @endforeach
                   </div>
@@ -153,7 +156,9 @@
       $(function() {
         $('#scheduleSelector').change(function(){
           $('.scheduleDates').hide(100);
+          $('.scheduleID').hide(100);
           $('#' + $(this).val()).show(400);
+          console.log($('#' + $(this).val()));
         });
       });
     </script>

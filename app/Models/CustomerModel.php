@@ -19,4 +19,8 @@ class CustomerModel extends Model
     ];
 
     protected $hidden = [];
+
+    public function reservation(){
+        return $this->hasMany(ReservationModel::class);
+    }
 }
