@@ -52,7 +52,7 @@
                       <td>{{ $reservation->customer->name }}</td>
                       <td>{{ date('l, j \\ F Y', strtotime($reservation->booking_date)) }}</td>
                       <td>
-                        <a href="#">
+                        <a href="{{ route('sub-schedule.show', $reservation->booking_date) }}">
                           {{ date('H:i', strtotime($reservation->rent_schedule)) }}
                         </a>
                       </td>

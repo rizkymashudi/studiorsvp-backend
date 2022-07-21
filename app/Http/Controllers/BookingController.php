@@ -21,8 +21,11 @@ class BookingController extends Controller
      */
     public function index()
     {
+
+        $currentDate = now()->format('Y-m-d');
         $schedules = ScheduleModel::with('subSchedule')
                             ->orderBy('date', 'desc')
+                            ->where('date', '>=', $currentDate)
                             ->get();
 
         return view('pages.client.booking', [

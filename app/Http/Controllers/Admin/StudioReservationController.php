@@ -19,6 +19,7 @@ class StudioReservationController extends Controller
         $incomingReservations = ReservationModel::with('customer')
                                                 ->where('reservation_status', 'PENDING')
                                                 ->get();
+                                                
         return view('pages.admin.Reservations.index', [
             'incomingReservations' => $incomingReservations
         ]);

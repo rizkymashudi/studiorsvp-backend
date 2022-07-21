@@ -5,7 +5,7 @@
       <h2 class="text-4xl fw-bold color-palette-1 mb-30">Booking</h2>
       <div class="row">
         <div class="col-lg-6">
-          <div class="card">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
             <div class="card-body">
               <!-- Studio not available -->
               <div class="detail mx-3 my-3">
@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="card">
+          <div class="card shadow p-3 mb-5 bg-body rounded">
             <!-- form start -->
             <form  action="{{ route('booking.store') }}" method="POST" enctype="multipart/form-data">
               @csrf

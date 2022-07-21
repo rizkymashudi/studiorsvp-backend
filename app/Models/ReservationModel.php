@@ -17,7 +17,8 @@ class ReservationModel extends Model
         'rent_schedule',
         'duration',
         'total_pay',
-        'reservation_status'
+        'reservation_status',
+        'payment_proof'
     ];
 
     protected $hidden = [];

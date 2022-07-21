@@ -75,9 +75,13 @@ class StudioSubScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $slug)
     {
-        $schedule = ScheduleModel::with('subSchedule')->findOrFail($id);
+        // $schedule = ScheduleModel::with('subSchedule')->findOrFail($id);
+        $schedule = ScheduleModel::with('subSchedule')
+                                    ->where('date', $slug)
+                                    ->firstOrFail();
+   
         $openHour = date('H', strtotime($schedule->open_hours));
         $closeHour = date('H', strtotime($schedule->close_hour));
         $intervalTime = $closeHour - $openHour;

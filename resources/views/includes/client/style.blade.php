@@ -9,6 +9,10 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
 <link rel="stylesheet" href="{{ url('frontend/css/overview.css') }}" />
 <link rel="stylesheet" href="{{ url('frontend/css/edit-profile.css') }}" />
 <link rel="stylesheet" href="{{ url('frontend/css/detail.css') }}">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{{ url('backend/plugins/fontawesome-free/css/all.min.css') }}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 <!-- Google Font -->
 <link rel="preconnect" href="https://fonts.gstatic.com">

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ReservationModel;
+use Illuminate\Support\Facades\Validator;
 use Auth;
+use Alert;
 
 class ClientDashboardController extends Controller
 {
@@ -77,7 +79,23 @@ class ClientDashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all(), $id);
+        $validated = Validator::make($request->all(), [
+            'payment' => ['required', 'mimes:jpg,png,jpeg', 'max:2048']
+        ]);
+
+        if($validated->fails()):
+            Alert::toast('Validation error, please make sure your file type and size is valid ', 'error');
+            return redirect()->back();
+        endif;
+
+        $data = $request->all();
+        $data['payment_proof'] = $request->file('payment')->store('assets/payment-proof', 'public');
+        $reservation = ReservationModel::findOrFail($id);
+        $reservation->update($data);
+
+        Alert::toast('Upload file success', 'success');
+        return redirect()->back();
     }
 
     /**

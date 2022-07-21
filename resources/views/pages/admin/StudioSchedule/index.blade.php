@@ -73,7 +73,7 @@
                       <a href="#" class="btn btn-sm" style="background-color: #6610f2;" data-toggle="modal" data-target="#detail{{ $schedule->id }}">
                         <i class="fa fa-eye" style="color: #ffffff"></i>
                       </a>
-                      <a href="{{ route('sub-schedule.show', $schedule->id) }}" class="btn btn-success btn-sm">
+                      <a href="{{ route('sub-schedule.show', $schedule->date) }}" class="btn btn-success btn-sm">
                         <i class="fa fa-calendar-plus"></i>
                       </a>
                       <a href="{{ route('schedules.edit', $schedule->id) }}" class="btn btn-primary btn-sm">

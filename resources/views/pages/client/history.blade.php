@@ -4,7 +4,7 @@
     <div class="ps-lg-0">
       <h2 class="text-4xl fw-bold color-palette-1 mb-30">Booking History</h2>
       <div class="latest-transaction">
-        <div class="main-content main-content-table overflow-auto">
+        <div class="main-content main-content-table overflow-auto shadow p-3 mb-5 bg-body rounded">
           <table class="table table-borderless">
             <thead>
               <tr class="color-palette-1 text-center">
@@ -35,8 +35,10 @@
                   <td>
                     <p class="fw-medium text-center color-palette-1 m-0">{{ $history->total_pay }}</p>
                   </td>
-                  <td>
-                    <p class="fw-medium text-center color-palette-1 m-0">{{ $history->payment_proof }}</p>
+                  <td class="align-middle text-center">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#showimage{{ $history->id }}">
+                      <img src="{{ $history->payment_proof ? Storage::url($history->payment_proof) : 'https://via.placeholder.com/1280x720' }}" alt="image" style="width: 80px" class="img-thumbnail">
+                    </a>
                   </td>
                   <td>
                     <p class="fw-medium text-center color-palette-1 m-0">{{ $history->reservation_status }}</p>
@@ -51,6 +53,26 @@
             @endforelse
           </tbody>
           </table>
+
+          @foreach ($histories as $history)
+               <!-- Modal image-->
+            <div class="modal fade" id="showimage{{ $history->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Booking number {{ $history->reservations_number }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="{{ $history->payment_proof ? Storage::url($history->payment_proof) : 'https://via.placeholder.com/1280x720' }}" alt="poster" style="width: 450px">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          @endforeach
         </div>
       </div>
     </div>
