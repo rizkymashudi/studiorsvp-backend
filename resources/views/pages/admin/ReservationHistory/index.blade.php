@@ -54,8 +54,20 @@
                           {{ date('H:i', strtotime($history->rent_schedule)) }}
                       </td>
                       <td>{{ $history->duration }}</td>
-                      <td>{{ $history->payment_proof }}</td>
-                      <td>{{ $history->reservation_status }}</td>
+                      <td>
+                        <a href="#" data-toggle="modal" data-target="#showimage{{ $history->id }}">
+                          <img src="{{ $history->payment_proof ? Storage::url($history->payment_proof) : 'https://via.placeholder.com/1280x720' }}" alt="image" style="width: 80px" class="img-thumbnail">
+                        </a>
+                      </td>
+                      <td>
+                        @if($history->reservation_status == "COMPLETE")
+                          <span class="bg-success text-light px-3 rounded-lg">{{ $history->reservation_status }}</span>
+                        @elseif($history->reservation_status == "PENDING")
+                          <span class="bg-warning px-3 rounded-lg">{{ $history->reservation_status }}</span>
+                        @else
+                          <span class="bg-danger text-light px-3 rounded-lg">{{ $history->reservation_status }}</span>
+                        @endif
+                      </td>
                     </tr>
                     @php
                       $no++;
@@ -71,6 +83,27 @@
                   </tbody>
                   
                 </table>
+
+                @foreach ($histories as $history)
+                <!-- Modal image-->
+                <div class="modal fade" id="showimage{{ $history->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <div class="box-title d-sm-flex align-items-center justify-content-between">
+                                  <h5 class="modal-title" id="exampleModalLabel">Reservation number {{ $history->reservations_number }}</h5>
+                              </div>
+                          </div>
+                          <div class="modal-body text-center">
+                              <img src="{{ $history->payment_proof ? Storage::url($history->payment_proof) : 'https://via.placeholder.com/1280x720' }}" alt="poster" style="width: 450px">
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                @endforeach
   
 
               </div>
@@ -83,3 +116,17 @@
     <!-- /.content -->
 </div>
 @endsection
+
+@push('addon-script')
+  <script>
+      $(function () {
+        $("#example1").DataTable({
+          "responsive": true,
+          "lengthChange": false,
+          "autoWidth": false,
+          "ordering": true,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      });
+  </script>
+@endpush

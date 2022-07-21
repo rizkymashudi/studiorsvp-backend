@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CustomerModel;
+use App\Models\User;
+use App\Http\Requests\Client\CustomerRequest;
+use Alert;
 
 class CustomerSettingController extends Controller
 {
@@ -32,7 +36,7 @@ class CustomerSettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
         //
     }
@@ -66,9 +70,25 @@ class CustomerSettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CustomerRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        if($request->validated()):
+           $customer = CustomerModel::findOrFail($id);
+           $user = User::findOrFail($id);
+           $customer->update($data);
+           $user->update([
+                'name' => $request->name,
+                'email' => $request->email
+           ]);
+           
+           Alert::toast('Update profile success', 'success');
+           return redirect()->route('overview.index');
+        endif;
+
+        Alert::toast('Something went wrong, please try again', 'error');
+        return redirect()->back();
+
     }
 
     /**

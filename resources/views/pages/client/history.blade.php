@@ -41,7 +41,26 @@
                     </a>
                   </td>
                   <td>
-                    <p class="fw-medium text-center color-palette-1 m-0">{{ $history->reservation_status }}</p>
+                    @if ($history->reservation_status == "COMPLETE")
+                      <p class="fw-medium text-center color-palette-1 m-0">
+                        <span class="bg-success text-light px-4 rounded-3">
+                          {{ $history->reservation_status }}
+                        </span>
+                      </p>
+                    @elseif($history->reservation_status == "PENDING")
+                      <p class="fw-medium text-center color-palette-1 m-0">
+                        <span class="bg-warning px-4 rounded-3">
+                          {{ $history->reservation_status }}
+                        </span>
+                      </p>
+                    @else
+                      <p class="fw-medium text-center color-palette-1 m-0">
+                        <span class="bg-danger text-light px-4 rounded-3">
+                          {{ $history->reservation_status }}
+                        </span>
+                      </p>
+                    @endif
+                    
                   </td>
                 </tr>
             @empty

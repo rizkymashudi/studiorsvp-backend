@@ -57,8 +57,20 @@
                         </a>
                       </td>
                       <td>{{ $reservation->duration }}</td>
-                      <td>{{ $reservation->payment_proof }}</td>
-                      <td>{{ $reservation->reservation_status }}</td>
+                      <td>
+                        <a href="#" data-toggle="modal" data-target="#showimage{{ $reservation->id }}">
+                          <img src="{{ $reservation->payment_proof ? Storage::url($reservation->payment_proof) : 'https://via.placeholder.com/1280x720' }}" alt="image" style="width: 80px" class="img-thumbnail">
+                        </a>
+                      </td>
+                      <td>
+                        @if($reservation->reservation_status == "COMPLETE")
+                          <span class="bg-success text-light px-3 rounded-lg">{{ $reservation->reservation_status }}</span>
+                        @elseif($reservation->reservation_status == "PENDING")
+                          <span class="bg-warning px-3 rounded-lg">{{ $reservation->reservation_status }}</span>
+                        @else
+                          <span class="bg-danger text-light px-3 rounded-lg">{{ $reservation->reservation_status }}</span>
+                        @endif
+                      </td>
                       <td>
                         <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#detail{{ $reservation->id }}">
                           <i class="fa fa-pen"></i>
@@ -85,6 +97,25 @@
   
   
                 @foreach ($incomingReservations as $reservation)
+                 <!-- Modal image-->
+                 <div class="modal fade" id="showimage{{ $reservation->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <div class="box-title d-sm-flex align-items-center justify-content-between">
+                                  <h5 class="modal-title" id="exampleModalLabel">Reservation number {{ $reservation->reservations_number }}</h5>
+                              </div>
+                          </div>
+                          <div class="modal-body text-center">
+                              <img src="{{ $reservation->payment_proof ? Storage::url($reservation->payment_proof) : 'https://via.placeholder.com/1280x720' }}" alt="poster" style="width: 450px">
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+
                 {{-- Modal detail --}}
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="detail{{ $reservation->id }}">
                   <div class="modal-dialog modal-lg">
@@ -157,3 +188,17 @@
     <!-- /.content -->
 </div>
 @endsection
+
+@push('addon-script')
+  <script>
+      $(function () {
+        $("#example1").DataTable({
+          "responsive": true,
+          "lengthChange": false,
+          "autoWidth": false,
+          "ordering": true,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      });
+  </script>
+@endpush
