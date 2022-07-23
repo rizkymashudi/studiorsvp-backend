@@ -1,6 +1,12 @@
 /* Sign Up */
+body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
 .sign-up input[type="password"],
+.sign-up input[type="tel"],
 .sign-up input[type="email"],
 .sign-up input[type="text"]{
     border: 1px solid #0C145A;
@@ -10,12 +16,14 @@
 
 .sign-up input[type="password"]:focus-within,
 .sign-up input[type="email"]:focus-within,
+.sign-up input[type="tel"]:focus-within,
 .sign-up input[type="text"]:focus-within{
     color: #0C145A;
 }
 
 .sign-up input[type="password"]::placeholder,
 .sign-up input[type="email"]::placeholder,
+.sign-up input[type="tel"]::placeholder,
 .sign-up input[type="text"]::placeholder{
     color: #CCD0DD;
 }

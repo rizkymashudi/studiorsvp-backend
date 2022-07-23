@@ -3,7 +3,10 @@
     <main>
       <!-- Header -->
       <section class="header pt-lg-60 pb-50" id="header">
-        <div class="container-xxl container-fluid">
+        <div class="container-xxl container-fluid py-5">
+            <video autoplay loop muted plays-inline class="bg-video">
+                <source src="{{ url('frontend/assets/img/video.mp4') }}" type="video/mp4">
+            </video>
             <div class="row gap-lg-0 gap-5 my-5">
                 <div class="col-lg-6 col-12 my-auto" data-aos="zoom-in">
                     <p class="text-support text-lg color-palette-5">
@@ -74,9 +77,17 @@
         </div>
       </section>
 
+      <section class="separator pt-50 pb-50">
+        <div class="container-fluid">
+            <div class="d-flex flex-lg-row flex-column align-items-center justify-content-center gap-lg-0 gap-4">
+                {{--  --}}
+            </div>
+        </div>
+    </section>
+
       <!-- 3 Column - Feature -->
-      <section id="feature" class="feature pt-50 pb-50">
-          <div class="container-fluid">
+      <section id="feature" class="feature pt-50">
+          <div class="container-fluid mt-5 pt-5">
               <h2 class="text-4xl fw-bold color-palette-5 text-center mb-30">About us</h2>
               <div class="row gap-lg-0 gap-4 my-5 align-items-center justify-content-center" data-aos="fade-up">
                   <div class="col-lg-4">

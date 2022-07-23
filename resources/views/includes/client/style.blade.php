@@ -10,6 +10,9 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
 <link rel="stylesheet" href="{{ url('frontend/css/edit-profile.css') }}" />
 <link rel="stylesheet" href="{{ url('frontend/css/detail.css') }}">
 <link rel="stylesheet" href="{{ url('frontend/css/checkout.css') }}">
+<link rel="stylesheet" href="{{ url('frontend/css/sign-in.css') }} ">
+<link rel="stylesheet" href="{{ url('frontend/css/sign-up.css') }} ">
+
 <!-- Font Awesome -->
 <link rel="stylesheet" href="{{ url('backend/plugins/fontawesome-free/css/all.min.css') }}">
 <!-- Ionicons -->
