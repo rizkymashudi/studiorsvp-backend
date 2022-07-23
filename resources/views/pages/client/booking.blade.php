@@ -11,7 +11,7 @@
               <div class="detail mx-3 my-3">
                 <label class="fw-medium color-palette-1 mb-2" for="schedule">Studio not available on</label>
                 <div class="row justify-content-start">
-                  @foreach($schedules as $schedule)
+                  @forelse($schedules as $schedule)
                     <div class="form-group mx-2 mt-1">
                       <div class="row justify-content-start">
                           <label>{{ date('l, j \\ F Y', strtotime($schedule->date)) }}</label>
@@ -40,7 +40,9 @@
                         @endforelse
                       </div>
                     </div>
-                  @endforeach
+                  @empty
+                    <h2>There is no schedule</h2>
+                  @endforelse
                 </div>
               </div>
             </div>

@@ -17,4 +17,8 @@ class ReportModel extends Model
     ];
 
     protected $hidden = [];
+
+    public function reservation(){
+        return $this->belongsTo(ReservationModel::class, 'reservation_id');
+    }
 }

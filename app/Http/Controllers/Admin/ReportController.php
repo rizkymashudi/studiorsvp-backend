@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ReportModel;
+use App\Models\ReservationModel;
+use DB;
 
 class ReportController extends Controller
 {
@@ -15,7 +17,17 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $reports = ReportModel::all();
+        // $reports = ReportModel::all();
+        $reports = ReservationModel::select(
+            DB::raw('DATE(booking_date) as date'),
+            DB::raw('SUM(duration) as total_duration'),
+            DB::raw('SUM(total_pay) as total_income'))
+            ->where('reservation_status', 'COMPLETE')
+            ->groupBy('booking_date')
+            ->orderBy('booking_date', 'desc')
+            ->get();
+
+        // dd($reports->toArray());
         return view('pages.admin.Report.index', ['reports' => $reports]);
     }
 

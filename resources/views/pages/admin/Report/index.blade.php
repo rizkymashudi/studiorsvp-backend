@@ -32,10 +32,8 @@
                     <tr>
                       <th>#</th>
                       <th>reservation number</th>
-                      <th>total payment</th>
-                      <th>total rent duration</th>
-                      {{-- <th>CSS grade</th> --}}
-                      {{-- <th>Action</th> --}}
+                      <th>total rent duration (hours)</th>
+                      <th>total income</th>
                     </tr>
                   </thead>
       
@@ -46,9 +44,9 @@
                     @forelse ($reports as $report)
                         <tr>
                           <td>{{ $no }}</td>
-                          <td>{{ $report->reservation_id }}</td>
-                          <td>{{ $report->payment_total }}</td>
+                          <td>{{ date('l, j \\ F Y', strtotime($report->date)) }}</td>
                           <td>{{ $report->total_duration }}</td>
+                          <td>{{ $report->total_income }}</td>
                         </tr>
                         @php
                             $no++;

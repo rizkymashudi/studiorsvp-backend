@@ -26,7 +26,7 @@ use App\Http\Controllers\CustomerSettingController;
 */
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('overview', ClientDashboardController::class);
+Route::resource('overview', ClientDashboardController::class)->middleware(['auth', 'verified']);
 Route::resource('booking', BookingController::class);
 Route::resource('reservations-history', HistoryController::class);
 Route::resource('profile-settings', CustomerSettingController::class);

@@ -52,9 +52,15 @@
                       <td>{{ $reservation->customer->name }}</td>
                       <td>{{ date('l, j \\ F Y', strtotime($reservation->booking_date)) }}</td>
                       <td>
-                        <a href="{{ route('sub-schedule.show', $reservation->booking_date) }}">
+                        @if(empty($reservation->payment_proof))
                           {{ date('H:i', strtotime($reservation->rent_schedule)) }}
-                        </a>
+                        @else
+                        <span class="bg-primary rounded-lg px-3">
+                          <a href="{{ route('sub-schedule.show', $reservation->reservations_number) }}" style="color: #ffffff">
+                            {{ date('H:i', strtotime($reservation->rent_schedule)) }}
+                          </a>
+                        </span>
+                        @endif
                       </td>
                       <td>{{ $reservation->duration }}</td>
                       <td>

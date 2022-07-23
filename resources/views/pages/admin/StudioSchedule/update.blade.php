@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @push('addon-style')
-  <link rel="stylesheet" href="{{ url('frontend/css/detail.css') }}">
+  <link rel="stylesheet" href="{{ url('frontend/css/detail-update.css') }}">
 @endpush
 
 @section('content')
@@ -16,7 +16,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" style="color: #6610f2">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('schedules.index') }}" style="color: #6610f2">Studio schedules</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('reservations.index') }}" style="color: #6610f2">Studio reservations</a></li>
               <li class="breadcrumb-item active">Update studio schedules</li>
             </ol>
           </div><!-- /.col -->
@@ -41,9 +41,20 @@
               <form  action="{{ route('sub-schedule.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-
+                  <div class="detail mb-3">
+                    <label>Scheduled booked</label>
+                    <h3>
+                      <span class="bg-success px-3 rounded-lg">{{ date('H:i', strtotime($booking->rent_schedule)) }}</span>
+                    </h3>
+                  </div>
+                  <div class="detail my-3">
+                    <label>Duration booked</label>
+                    <h3>
+                      <span class="bg-success px-3 rounded-lg">{{ $booking->duration }} hours</span>
+                    </h3>
+                  </div>
                   <div class="detail form-group">
-                    <label>Studio reserved</label>
+                    <label>Studio not available</label>
                     <div class="row justify-content-start">
                       @php
                         $sub = $schedule->subSchedule;
@@ -82,7 +93,7 @@
                       @endphp
                       @for($cardCount = 0; $cardCount < $intervalTime; $cardCount++)
                       <label class="col-lg-2 col-sm-6 ps-md-15 pe-md-15 pt-md-15 pb-md-15 pt-10 pb-10" for="reserved{{ $cardCount }}">
-                        <input class="d-none @error('reserved') is-invalid @enderror" type="radio" id="reserved{{ $cardCount }}" name="reserved" value="{{ $openHour }}:00:00">
+                        <input class="d-none @error('reserved') is-invalid @enderror" type="checkbox" id="reserved{{ $cardCount }}" name="reserved[]" multiple value="{{ $openHour }}:00:00">
                         <div class="detail-card">
                             <div class="d-flex justify-content-around align-items-center  ">
                                 <p class="text-lg color-palette-1 m-0">
@@ -107,6 +118,9 @@
 
                   <div class="form-group">
                     <input type="hidden" name="scheduleID" value="{{ $schedule->id }}">
+                    <input type="hidden" name="reservationNumber" value="{{ $reservationNumber }}">
+                    <input type="hidden" name="bookedSchedule" value="{{ $booking->rent_schedule }}">
+                    <input type="hidden" name="bookedDuration" value="{{ $booking->duration }}">
                   </div>
                 </div>
                 <!-- /.card-body -->

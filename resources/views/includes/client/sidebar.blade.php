@@ -33,9 +33,15 @@
                   <path d="M3.90332 6.41406H21.9033" stroke="#7E8CAC" stroke-width="2" stroke-linecap="round"
                       stroke-linejoin="round" />
               </svg>
-              <p class="item-title m-0">
-                  <a href="{{ route('booking.index') }}" class="text-lg text-decoration-none">Booking</a>
-              </p>
+              @if(Auth::check())
+                <p class="item-title m-0">
+                    <a href="{{ route('booking.index') }}" class="text-lg text-decoration-none">Booking</a>
+                </p>
+              @else
+                <p class="item-title m-0">
+                    <a href="{{ route('login') }}" class="text-lg text-decoration-none">Booking</a>
+                </p>
+              @endif
           </div>
           <div class="item {{ set_active('reservations-history.index') }} mb-30">
               <svg class="icon me-3" width="25" height="25" viewBox="0 0 25 25" fill="none"

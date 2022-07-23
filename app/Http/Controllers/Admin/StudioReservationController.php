@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ReservationModel;
+use App\Models\ScheduleModel;
+use App\Models\SubScheduleModel;
 use Illuminate\Http\Request;
 use Alert;
 
@@ -80,6 +82,11 @@ class StudioReservationController extends Controller
         $status = $request->reservation_status;
         $reservation = ReservationModel::findOrFail($id);
 
+        if(empty($reservation->payment_proof)):
+            Alert::toast('Change status failed, please wait until customers upload payment proof', 'error');
+            return redirect()->back();
+        endif;
+
         $reservation->update([
             'reservation_status' => $status
         ]);
@@ -96,6 +103,19 @@ class StudioReservationController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $reservation = ReservationModel::findOrFail($id);
+
+       $date = $reservation->booking_date;
+       $scheduleID = ScheduleModel::select('id')->where('date', $date)->first();
+       $subScheduleExist = SubScheduleModel::select('studio_reserved')
+                                            ->where('schedule_id', $scheduleID->id)
+                                            ->exists();
+       if($subScheduleExist):
+            Alert::toast('Delete fail, this reservation already have running schedule reserved', 'error');
+            return redirect()->back();
+       endif;
+
+       Alert::toast('Data berhasil dihapus', 'success');
+       return redirect()->back();
     }
 }

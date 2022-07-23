@@ -31,7 +31,6 @@
             <i class="nav-icon far fa-calendar-alt"></i>
             <p>
               Studio schedules
-              <span class="badge badge-danger right">10</span>
             </p>
           </a>
         </li>
@@ -42,6 +41,9 @@
             <i class="nav-icon fas fa-book"></i>
             <p>
               Reservations
+              @if (App\Models\ReservationModel::where('reservation_status', 'PENDING')->count() > 0)
+                <span class="badge badge-danger right">{{ App\Models\ReservationModel::where('reservation_status', 'PENDING')->count() }}</span>
+              @endif
             </p>
           </a>
         </li>
