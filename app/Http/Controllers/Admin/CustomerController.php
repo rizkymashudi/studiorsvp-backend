@@ -15,7 +15,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = CustomerModel::all();
+        $customers = CustomerModel::where('name', '!=', 'admin')->get();
         return view('pages.admin.Customer.index', ['customers' => $customers]);
     }
 

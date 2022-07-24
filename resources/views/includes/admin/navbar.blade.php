@@ -18,10 +18,12 @@
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="userDropdown">
+            @if (Auth::user()->roles == 'SUPERUSER')
             <a class="dropdown-item" href="{{ route('setting.index') }}">
-                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                Settings
+              <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+              Settings
             </a>
+            @endif
             <a class="dropdown-item" href="{{ route('log.index') }}">
                 <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                 Activity Log

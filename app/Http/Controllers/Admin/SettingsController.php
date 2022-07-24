@@ -20,7 +20,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::where('roles', '!=', 'SUPERUSER')->get();
         return view('pages.admin.Settings.index', ['users' => $users]);
     }
 

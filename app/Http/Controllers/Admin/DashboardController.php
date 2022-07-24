@@ -27,7 +27,7 @@ class DashboardController extends Controller
                                             ->groupBy('booking_date')
                                             ->orderBy('booking_date', 'asc')
                                             ->latest()
-                                            ->take(7)
+                                            ->take(30)
                                             ->get();
 
         return view('pages.admin.dashboard', [
