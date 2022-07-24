@@ -40,6 +40,15 @@
                       <a class="btn btn-sign-up fw-medium text-lg color-palette-1 rounded-pill" href="{{ route('register') }}" role="button">Sign Up</a>
                   </div>
               </div>
+              <div class="row mb-0 my-3 justify-content-center">
+                <div class="col-md-8 text-center">
+                    @if (Route::has('password.request'))
+                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                            {{ __('Forgot Your Password?') }}
+                        </a>
+                    @endif
+                </div>
+            </div>
           </form>
       </div>
       <div class="col-xxl-7 col-lg-6 bg-login text-center pt-lg-145 pb-lg-145 d-lg-block d-none">

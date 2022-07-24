@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\SettingRequest;
 use Illuminate\Http\Request;
+use App\Models\CustomerModel;
+use App\Models\User;
+use App\Models\LogModel;
+use Alert;
+use Auth;
 
 class SettingsController extends Controller
 {
@@ -14,7 +20,8 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.Settings.index');
+        $users = User::all();
+        return view('pages.admin.Settings.index', ['users' => $users]);
     }
 
     /**
@@ -67,9 +74,28 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SettingRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        if($request->validated()):
+            $user->update([
+                'roles' => $request->userRoles
+            ]);
+
+            $userType = Auth::user()->roles;
+            LogModel::create([
+                'action' => "UPDATE",
+                'user'  => $userType,
+                'description' => "$userType mengubah roles pada data user $user->name menjadi $request->userRoles" 
+            ]);
+
+            Alert::toast('Change user roles success', 'success');
+            return redirect()->back();
+        endif;
+
+        Alert::toast('Something went wrong, change user roles failed', 'error');
+        return redirect()->back();
     }
 
     /**

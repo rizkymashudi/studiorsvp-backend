@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\CustomerModel;
 use App\Models\User;
+use App\Models\LogActivity;
 use App\Http\Requests\Client\CustomerRequest;
 use Alert;
+use Auth;
 
 class CustomerSettingController extends Controller
 {

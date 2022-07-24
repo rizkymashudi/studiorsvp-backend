@@ -17,7 +17,7 @@
     
     <div class="wrapper">
         @include('sweetalert::alert')
-        @include('includes.client.navbar')
+        @include('includes.client.navbar-dash')
         @include('includes.client.sidebar')
 
         <!-- Content -->

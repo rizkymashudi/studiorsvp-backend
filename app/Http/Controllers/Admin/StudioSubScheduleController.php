@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\ScheduleModel;
 use App\Models\SubScheduleModel;
 use App\Models\ReservationModel;
+use App\Models\LogModel;
 use App\Http\Requests\Admin\SubScheduleRequest;
 use Illuminate\Http\Request;
 use Alert;
+use Auth;
 
 
 class StudioSubScheduleController extends Controller
@@ -42,6 +44,9 @@ class StudioSubScheduleController extends Controller
     public function store(SubScheduleRequest $request)
     {        
         $scheduleID = $request->scheduleID;
+        $date = ScheduleModel::select('date')->where('id', $scheduleID)->first();
+        $scheduleDate = date('l, j \\ F Y', strtotime($date->date));
+
         // Convert string to time
         foreach($request->reserved as $reserved):
             $schedule = "$reserved";
@@ -89,6 +94,13 @@ class StudioSubScheduleController extends Controller
                     'studio_reserved' => $reserved
                 ]);
             endforeach;
+
+            $user = Auth::user()->roles;
+            LogModel::create([
+                'action' => "CREATE",
+                'user'  => $user,
+                'description' => "$user menambah data reservasi schedule baru pada hari $scheduleDate" 
+            ]);
 
             Alert::toast('New schedule reserved success', 'success');
             return redirect()->route('reservations.index');

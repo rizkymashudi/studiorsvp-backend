@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ScheduleModel;
 use App\Models\SubScheduleModel;
+use App\Models\LogModel;
 use App\Http\Requests\Admin\StudioSchedulesRequest;
 use Illuminate\Http\Request;
 use Alert;
+use Auth;
 
 class StudioScheduleController extends Controller
 {
@@ -47,6 +49,7 @@ class StudioScheduleController extends Controller
         $datePicked = $request->date;
         $date = date_create($datePicked);
         $dateConverted = date_format($date, 'Y-m-d');
+        $newScheduleDate = date('l, j \\ F Y', strtotime($dateConverted));
 
         $openHour = $request->open_hours;
         $closeHour = $request->close_hour;
@@ -85,6 +88,13 @@ class StudioScheduleController extends Controller
         else:
             Alert::toast('Gagal mengubah data', 'error');
         endif;
+
+        $user = Auth::user()->roles;
+        LogModel::create([
+            'action' => "CREATE",
+            'user'  => $user,
+            'description' => "$user menambah data schedule baru untuk hari $newScheduleDate" 
+        ]);
         
         Alert::toast('Data berhasil diubah', 'success');
         return redirect()->route('schedules.index');
@@ -131,6 +141,7 @@ class StudioScheduleController extends Controller
         $datePicked = $request->date;
         $date = date_create($datePicked);
         $dateConverted = date_format($date, 'Y-m-d');
+        $newScheduleDate = date('l, j \\ F Y', strtotime($dateConverted));
 
         $openHour = $request->open_hours;
         $closeHour = $request->close_hour;
@@ -162,6 +173,13 @@ class StudioScheduleController extends Controller
                 'close_hour' => $closeHour
             ]);
 
+            $user = Auth::user()->roles;
+            LogModel::create([
+                'action' => "UPDATE",
+                'user'  => $user,
+                'description' => "$user mengubah data schedule pada data hari $newScheduleDate" 
+            ]);
+
             Alert::toast('Data berhasil diubah', 'success');
             return redirect()->route('schedules.index');
         endif; 
@@ -179,6 +197,8 @@ class StudioScheduleController extends Controller
     public function destroy($id)
     {
         $schedule = ScheduleModel::findOrFail($id);
+        $dateConverted = date('l, j \\ F Y', strtotime($schedule->date));
+
         $reservedScheduleRunningExist = SubScheduleModel::with('schedule')
                                             ->where('schedule_id', $id)
                                             ->select('studio_reserved')    
@@ -189,6 +209,13 @@ class StudioScheduleController extends Controller
         endif;
 
         $schedule->delete();
+
+        $user = Auth::user()->roles;
+        LogModel::create([
+            'action' => "DELETE",
+            'user'  => $user,
+            'description' => "$user menghapus data schedule untuk hari $dateConverted" 
+        ]);
 
         Alert::toast('Data berhasil dihapus', 'success');
         return redirect()->route('schedules.index');

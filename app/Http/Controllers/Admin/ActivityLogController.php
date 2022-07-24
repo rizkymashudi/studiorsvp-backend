@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\LogModel;
 use Illuminate\Http\Request;
 
 class ActivityLogController extends Controller
@@ -14,7 +15,9 @@ class ActivityLogController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.Log.index');
+        $logs = LogModel::orderBy('id', 'desc')->get();
+
+        return view('pages.admin.Log.index', ['logs' => $logs]);
     }
 
     /**

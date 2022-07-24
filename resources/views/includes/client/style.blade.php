@@ -4,6 +4,7 @@ integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="{{ url('frontend/css/homepage.css') }}">
+<link rel="stylesheet" href="{{ url('frontend/css/homepage-dash.css') }}">
 <link rel="stylesheet" href="{{ url('frontend/css/utilities.css') }}">
 <link rel="stylesheet" href="{{ url('frontend/css/sidebar.css') }}">
 <link rel="stylesheet" href="{{ url('frontend/css/overview.css') }}" />

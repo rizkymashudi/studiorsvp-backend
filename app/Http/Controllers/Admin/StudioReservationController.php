@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\ReservationModel;
 use App\Models\ScheduleModel;
 use App\Models\SubScheduleModel;
+use App\Models\LogModel;
 use Illuminate\Http\Request;
 use Alert;
+use Auth;
 
 class StudioReservationController extends Controller
 {
@@ -91,6 +93,13 @@ class StudioReservationController extends Controller
             'reservation_status' => $status
         ]);
 
+        $user = Auth::user()->roles;
+        LogModel::create([
+            'action' => "UPDATE",
+            'user'  => $user,
+            'description' => "$user mengubah status pada data reservasi dengan booking number $reservation->reservations_number" 
+        ]);
+
         Alert::toast('Change booking status success', 'success');
         return redirect()->back();
     }
@@ -114,6 +123,13 @@ class StudioReservationController extends Controller
             Alert::toast('Delete fail, this reservation already have running schedule reserved', 'error');
             return redirect()->back();
        endif;
+
+       $user = Auth::user()->roles;
+        LogModel::create([
+            'action' => "DELETE",
+            'user'  => $user,
+            'description' => "$user menghapus data reservasi dengan booking number $reservation->reservations_number" 
+        ]);
 
        Alert::toast('Data berhasil dihapus', 'success');
        return redirect()->back();

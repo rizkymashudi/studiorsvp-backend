@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AssetModel;
 use App\Http\Requests\Admin\StudioAssetRequest;
+use App\Models\LogModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Alert;
+use Auth;
 
 class StudioAssetController extends Controller
 {
@@ -18,7 +20,7 @@ class StudioAssetController extends Controller
      */
     public function index()
     {
-        $assets = AssetModel::all();
+        $assets = AssetModel::orderBy('id', 'desc')->get();
         return view('pages.admin.StudioAsset.index', [ 'assets' => $assets ]);
     }
 
@@ -54,6 +56,13 @@ class StudioAssetController extends Controller
                 AssetModel::create($data);
 
             endif;
+
+            $user = Auth::user()->roles;
+            LogModel::create([
+                'action' => "CREATE",
+                'user'  => $user,
+                'description' => "$user menambahkan studio asset baru $request->item_name" 
+            ]);
 
             Alert::toast('Data berhasil diubah', 'success');
             return redirect()->route('assets.index');
@@ -112,6 +121,13 @@ class StudioAssetController extends Controller
 
             endif;
 
+            $user = Auth::user()->roles;
+            LogModel::create([
+                'action' => "UPDATE",
+                'user'  => $user,
+                'description' => "$user melakukan perubahan pada studio asset $request->item_name" 
+            ]);
+
             Alert::toast('Data berhasil diubah', 'success');
             return redirect()->route('assets.index');
         endif; 
@@ -130,6 +146,13 @@ class StudioAssetController extends Controller
     {
         $asset = AssetModel::findOrFail($id);
         $asset->delete();
+
+        $user = Auth::user()->roles;
+        LogModel::create([
+            'action' => "DELETE",
+            'user'  => $user,
+            'description' => "$user menghapus data pada studio asset $asset->item_name" 
+        ]);
 
         Alert::toast('Data berhasil dihapus', 'success');
         return redirect()->route('assets.index');

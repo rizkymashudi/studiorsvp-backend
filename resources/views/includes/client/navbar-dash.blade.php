@@ -1,5 +1,5 @@
 <section>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-transparent">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ url('frontend/assets/icon/logocnm.png') }}" alt="" width="60" height="60">
@@ -26,12 +26,6 @@
                     
                     @endauth
                     <li class="nav-item my-auto">
-                        <a class="nav-link" href="#feature">About us</a>
-                    </li>
-                    <li class="nav-item my-auto me-lg-20">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item my-auto">
                         @auth
                             <form class="form-inline my-2 my-lg-0 d-none d-md-block" action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -46,18 +40,3 @@
         </div>
     </nav>
 </section>
-
-<script>
-    var nav = document.querySelector('nav');
-    window.addEventListener('scroll', function() {
-        if(window.pageYOffset > 100){
-            nav.classList.add('bg-light', 'shadow')
-            nav.classList.add('navbar-light')
-            nav.classList.remove('navbar-transparenttransparent')
-        } else {
-            nav.classList.remove('bg-light', 'shadow')
-            nav.classList.remove('navbar-light')
-            nav.classList.add('navbar-transparent')
-        }
-    })
-</script>

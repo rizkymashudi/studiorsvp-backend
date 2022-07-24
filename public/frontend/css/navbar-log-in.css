@@ -4,15 +4,34 @@
     color: #0C145A;
 }
 
+.navbar-transparent .navbar-nav .nav-link.active, .navbar-transparent .navbar-nav .show>.nav-link{
+    font-weight: 500;
+    color: #b7ff00;
+}
+
 .navbar-light .navbar-nav .nav-link:hover{
     color: #0C145A;
+}
+
+.navbar-transparent .navbar-nav .nav-link:hover{
+    color: #c5c5c5;
 }
 
 .navbar-light .navbar-nav .nav-link{
     color: #7E8CAC;
 }
 
+.navbar-transparent .navbar-nav .nav-link{
+    color: #ffffff;
+}
+
 .navbar-light .btn-sign-in{
+    color: #0C145A;
+    background-color: #ffffff;
+    padding: 0.75rem 1.875rem;
+}
+
+.navbar-transparent .btn-sign-in{
     color: #0C145A;
     background-color: #ffffff;
     padding: 0.75rem 1.875rem;

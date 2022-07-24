@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-lg-6 col-12 d-lg-block d-none">
                     <div class="d-flex justify-content-lg-end justify-content-center me-lg-5">
-                        <div class="position-relative" data-aos="zoom-in">
+                        <div class="position-relative shadow-lg" data-aos="zoom-in">
                             <img src="{{ url('frontend/assets/img/header-banner.png') }}" class="img-fluid" alt="">
                             <div class="card right-card position-absolute border-0">
                                 <div class="d-flex align-items-center mb-16 gap-3">

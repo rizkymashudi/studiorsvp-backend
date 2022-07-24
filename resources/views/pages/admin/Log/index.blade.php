@@ -10,7 +10,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" style="color: #6610f2;">Home</a></li>
               <li class="breadcrumb-item active">Activity log</li>
             </ol>
           </div><!-- /.col -->
@@ -22,73 +22,69 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Date</th>
+                      <th>Acitivity</th>
+                      <th>User</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+      
+                  <tbody>
+                    @php
+                        $no = 1;
+                    @endphp
+                    @forelse ($logs as $log)
+                        <tr>
+                          <th>{{ $no }}</th>
+                          <th>{{ date('l, j \\ F Y, H:i:s', strtotime($log->created_at)) }}</th>
+                          <th>{{ $log->action }}</th>
+                          <th>{{ $log->user }}</th>
+                          <th>{{ $log->description }}</th>
+                        </tr>
+                        @php
+                          $no++;
+                        @endphp
+                    @empty
+                        <tr>
+                          <td class="text-center p-5" colspan="5">
+                              Data tidak tersedia
+                          </td>
+                        </tr>
+                    @endforelse
+                  </tbody>
+  
+                </table>
 
-                <p>New Orders</p>
               </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <!-- /.card-body -->
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
         </div>
-        <!-- /.row -->
 
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 </div>
 @endsection
+
+@push('addon-script')
+  <script>
+      $(function () {
+        $("#example1").DataTable({
+          "responsive": true,
+          "lengthChange": false,
+          "autoWidth": false,
+          "ordering": true,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      });
+  </script>
+@endpush
