@@ -30,7 +30,7 @@
                             <img src="{{ url('frontend/assets/img/header-banner.png') }}" class="img-fluid" alt="">
                             <div class="card right-card position-absolute border-0">
                                 <div class="d-flex align-items-center mb-16 gap-3">
-                                    <img src="{{ url('frontend/assets/img/Header-2.png') }}" width="40" height="40" class="rounded-pill"
+                                    <img src="{{ url('frontend/assets/img/ava.png') }}" width="40" height="40" class="rounded-pill"
                                         alt="">
                                     <div>
                                         <p class="text-sm fw-medium color-palette-1 m-0">Rifan aryo</p>
